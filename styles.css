@@ -2,14 +2,17 @@
    MiCarro — tema limpio automotriz (pizarra + azul)
    ============================================================ */
 :root {
-  --azul:      #2563eb;
-  --azul-osc:  #1d4ed8;
-  --pizarra:   #0f172a;   /* casi negro azulado */
-  --texto:     #0f172a;
+  --marino:    #0a1a40;   /* azul marino profundo (marca) */
+  --marino-2:  #12275c;
+  --azul:      #1b3a7a;   /* botones primarios (marino-azulado) */
+  --azul-osc:  #132c5f;
+  --acento:    #4f83ff;   /* resaltes y acento del logo */
+  --pizarra:   #0a1a40;   /* header = marino profundo */
+  --texto:     #0f1b36;
   --muted:     #64748b;
-  --fondo:     #f1f5f9;
+  --fondo:     #eef2f8;
   --tarjeta:   #ffffff;
-  --borde:     #e2e8f0;
+  --borde:     #dbe3ef;
   --ok:        #16a34a;
   --pronto:    #d97706;
   --vencido:   #dc2626;
@@ -26,13 +29,19 @@ body {
 }
 
 /* Encabezado */
-.site-header { background: var(--pizarra); color: #fff; padding: 1rem 1.2rem; }
+.site-header {
+  background: linear-gradient(135deg, var(--marino) 0%, var(--marino-2) 100%);
+  color: #fff; padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(79,131,255,.25);
+}
 .header-top {
   max-width: 980px; margin: 0 auto;
   display: flex; justify-content: space-between; align-items: center; gap: 1rem;
 }
-.logo { font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.5rem; }
-.logo span { color: #60a5fa; }
+.logo { display: flex; align-items: center; gap: 0.55rem; }
+.logo-mark { display: block; flex: 0 0 auto; }
+.logo-text { font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; }
+.logo-text em { font-style: normal; color: var(--acento); }
 
 main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.2rem 3rem; }
 
