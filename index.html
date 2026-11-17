@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MiCarro — Control de mantenimiento de tu vehículo</title>
+  <title>MyCarAI — El control de tu carro, con inteligencia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 
 <body>
@@ -21,18 +21,72 @@
           <line x1="18" y1="24.2" x2="23.4" y2="15.2" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
           <circle cx="18" cy="24.2" r="2.6" fill="#4f83ff"/>
         </svg>
-        <span class="logo-text">Mi<em>Carro</em></span>
+        <span class="logo-text">MyCar<em>AI</em></span>
       </div>
       <div id="auth-zona" class="auth-zona"></div>
     </div>
   </header>
 
   <main>
-    <!-- Pantalla cuando NO hay sesión -->
-    <section id="bienvenida" class="bienvenida">
-      <h1>Llevá el control de tu carro, sin complicarte</h1>
-      <p>Registrá tus mantenimientos (aceite, llantas, frenos, bujías, RTV) y MiCarro te avisa cuándo toca el próximo, según los kilómetros.</p>
-      <button id="btn-empezar" class="btn-primario" type="button">Empezar gratis</button>
+    <!-- Pantalla cuando NO hay sesión: landing interactiva -->
+    <section id="bienvenida" class="landing">
+      <div class="hero">
+        <h1>MyCar<em>AI</em></h1>
+        <p class="sub">El control de tu carro, con inteligencia. Nunca más se te pasa un mantenimiento.</p>
+        <button id="btn-empezar" class="btn-primario grande" type="button">Empezar gratis</button>
+        <div class="scroll-hint">↓ Mirá lo que resolvemos</div>
+      </div>
+
+      <!-- "Viaje": el carro baja por la carretera mientras aparecen los problemas -->
+      <div class="viaje" id="viaje">
+        <div class="road" aria-hidden="true"></div>
+        <div class="carro-road" id="carroRoad" aria-hidden="true">
+          <svg viewBox="0 0 120 56" width="120" height="56">
+            <ellipse cx="60" cy="52" rx="46" ry="3.5" fill="rgba(10,26,64,.18)"/>
+            <path d="M6 42 L6 35 Q6 31 12 30 L36 30 Q46 17 66 17 L84 17 Q100 19 108 31 L114 33 Q118 34 118 39 L118 41 Q118 45 114 45 L10 45 Q6 45 6 42 Z" fill="#12275c"/>
+            <path d="M42 29 Q50 20 65 20 L70 20 L70 29 Z" fill="#8fb4ff"/>
+            <path d="M74 20 L84 20 Q96 21 102 29 L74 29 Z" fill="#8fb4ff"/>
+            <circle cx="34" cy="45" r="9" fill="#0a1a40"/><circle cx="34" cy="45" r="3.6" fill="#4f83ff"/>
+            <circle cx="92" cy="45" r="9" fill="#0a1a40"/><circle cx="92" cy="45" r="3.6" fill="#4f83ff"/>
+          </svg>
+        </div>
+
+        <div class="paradas">
+          <div class="parada izq">
+            <div class="p-card">
+              <span class="p-emoji">🛢️</span>
+              <h3>Se te pasan los mantenimientos</h3>
+              <p>MyCarAI te avisa cuándo toca aceite, frenos, llantas y bujías — según tus kilómetros reales.</p>
+            </div>
+          </div>
+          <div class="parada der">
+            <div class="p-card">
+              <span class="p-emoji">🤖</span>
+              <h3>Facturas regadas por todos lados</h3>
+              <p>Reenviás la factura del taller a tu correo y la IA la lee y la ordena sola en tu historial.</p>
+            </div>
+          </div>
+          <div class="parada izq">
+            <div class="p-card">
+              <span class="p-emoji">📋</span>
+              <h3>La RTV te agarra de sorpresa</h3>
+              <p>Alertas por fecha para la Revisión Técnica y todo lo que vence cada año.</p>
+            </div>
+          </div>
+          <div class="parada der">
+            <div class="p-card">
+              <span class="p-emoji">💸</span>
+              <h3>No sabés cuánto gastás en el carro</h3>
+              <p>Todo el historial con costos en un solo lugar. Ideal para controlar gastos y subir el valor de reventa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-final">
+        <h2>Tu carro, siempre al día.</h2>
+        <button id="btn-empezar-2" class="btn-primario grande" type="button">Empezar gratis</button>
+      </div>
     </section>
 
     <!-- App (cuando hay sesión) -->
@@ -148,12 +202,13 @@
   </div>
 
   <footer class="site-footer">
-    <p>© 2026 MiCarro · Control de mantenimiento · Hecho en Costa Rica 🇨🇷</p>
+    <p>© 2026 MyCarAI · Control de mantenimiento con inteligencia · Hecho en Costa Rica 🇨🇷</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
   <script src="config.js?v=1"></script>
   <script src="auth.js?v=1" defer></script>
   <script src="app.js?v=1" defer></script>
+  <script src="landing.js?v=1" defer></script>
 </body>
 </html>
