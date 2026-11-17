@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiCarro — Control de mantenimiento de tu vehículo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="logo">🚗 Mi<span>Carro</span></div>
+      <div id="auth-zona" class="auth-zona"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Pantalla cuando NO hay sesión -->
+    <section id="bienvenida" class="bienvenida">
+      <h1>Llevá el control de tu carro, sin complicarte</h1>
+      <p>Registrá tus mantenimientos (aceite, llantas, frenos, bujías, RTV) y MiCarro te avisa cuándo toca el próximo, según los kilómetros.</p>
+      <button id="btn-empezar" class="btn-primario" type="button">Empezar gratis</button>
+    </section>
+
+    <!-- App (cuando hay sesión) -->
+    <section id="app" class="app" hidden>
+      <!-- Selector / alta de carros -->
+      <div class="carros-barra">
+        <select id="sel-carro" aria-label="Elegí tu carro"></select>
+        <button id="btn-nuevo-carro" class="btn-sec" type="button">+ Agregar carro</button>
+      </div>
+
+      <!-- Panel del carro seleccionado -->
+      <div id="panel-carro" class="panel-carro" hidden>
+        <div class="carro-head">
+          <div>
+            <h2 id="carro-nombre"></h2>
+            <p id="carro-placa" class="muted"></p>
+          </div>
+          <div class="km-box">
+            <label for="in-km">Kilómetros actuales</label>
+            <div class="km-row">
+              <input type="number" id="in-km" min="0" />
+              <button id="btn-km" class="btn-sec" type="button">Actualizar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Próximos mantenimientos (alertas) -->
+        <h3 class="seccion">Próximos mantenimientos</h3>
+        <div id="proximos" class="proximos"></div>
+
+        <!-- Historial + agregar -->
+        <div class="hist-head">
+          <h3 class="seccion">Historial</h3>
+          <button id="btn-nuevo-mant" class="btn-primario chico" type="button">+ Registrar mantenimiento</button>
+        </div>
+        <div id="historial" class="historial"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== MODAL: cuenta (login/registro/reset) ===== -->
+  <div id="auth-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-caja">
+      <button id="auth-cerrar" class="modal-cerrar" type="button" aria-label="Cerrar">✕</button>
+      <h2 id="auth-titulo">Crear cuenta</h2>
+      <form id="auth-form">
+        <label for="auth-email">Correo</label>
+        <input type="email" id="auth-email" required autocomplete="email" />
+        <label for="auth-pass">Contraseña</label>
+        <input type="password" id="auth-pass" required minlength="6" autocomplete="current-password" />
+        <button id="auth-submit" type="submit" class="btn-primario">Registrarme</button>
+      </form>
+      <p id="auth-msg" class="msg" aria-live="polite"></p>
+      <button id="auth-toggle" class="link" type="button">¿Ya tenés cuenta? <b>Iniciá sesión</b></button>
+      <button id="auth-reset" class="link" type="button" style="display:none">¿Olvidaste tu contraseña?</button>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: agregar carro ===== -->
+  <div id="carro-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-caja">
+      <button id="carro-cerrar" class="modal-cerrar" type="button" aria-label="Cerrar">✕</button>
+      <h2>Agregar carro</h2>
+      <form id="carro-form">
+        <label for="c-marca">Marca</label>
+        <input type="text" id="c-marca" name="marca" required placeholder="Toyota" />
+        <label for="c-modelo">Modelo</label>
+        <input type="text" id="c-modelo" name="modelo" required placeholder="Corolla" />
+        <div class="fila">
+          <div>
+            <label for="c-anio">Año</label>
+            <input type="number" id="c-anio" name="anio" min="1950" max="2100" placeholder="2018" />
+          </div>
+          <div>
+            <label for="c-placa">Placa</label>
+            <input type="text" id="c-placa" name="placa" placeholder="BMW123" />
+          </div>
+        </div>
+        <label for="c-km">Kilómetros actuales</label>
+        <input type="number" id="c-km" name="km_actual" min="0" required placeholder="85000" />
+        <button type="submit" class="btn-primario">Guardar carro</button>
+      </form>
+      <p id="carro-msg" class="msg" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: registrar mantenimiento ===== -->
+  <div id="mant-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-caja">
+      <button id="mant-cerrar" class="modal-cerrar" type="button" aria-label="Cerrar">✕</button>
+      <h2>Registrar mantenimiento</h2>
+      <form id="mant-form">
+        <label for="m-tipo">Tipo</label>
+        <select id="m-tipo" name="tipo" required></select>
+        <div class="fila">
+          <div>
+            <label for="m-fecha">Fecha</label>
+            <input type="date" id="m-fecha" name="fecha" required />
+          </div>
+          <div>
+            <label for="m-km">Kilómetros</label>
+            <input type="number" id="m-km" name="km" min="0" required />
+          </div>
+        </div>
+        <label for="m-costo">Costo (₡, opcional)</label>
+        <input type="number" id="m-costo" name="costo" min="0" placeholder="25000" />
+        <label for="m-nota">Nota (opcional)</label>
+        <input type="text" id="m-nota" name="nota" placeholder="Taller, detalle…" />
+        <button type="submit" class="btn-primario">Guardar</button>
+      </form>
+      <p id="mant-msg" class="msg" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>© 2026 MiCarro · Control de mantenimiento · Hecho en Costa Rica 🇨🇷</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js?v=1"></script>
+  <script src="auth.js?v=1" defer></script>
+  <script src="app.js?v=1" defer></script>
+</body>
+</html>
